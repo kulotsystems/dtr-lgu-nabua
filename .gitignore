@@ -15,4 +15,5 @@ yarn-error.log
 /.vscode
 
 public/css
+public/fonts
 public/js
