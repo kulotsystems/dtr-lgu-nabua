@@ -42,7 +42,8 @@ A web portal hooked into the DTR machine of LGU Nabua, Camarines Sur that can be
     npm run watch
     ```
    
-##### Dummy Account Code
+### Execution
+Access the local development server and use this dummy account code:
 ```
 test
 ```
