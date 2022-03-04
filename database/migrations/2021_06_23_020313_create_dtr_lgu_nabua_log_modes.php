@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 class CreateDtrLguNabuaLogModes extends Migration
 {
@@ -19,6 +20,21 @@ class CreateDtrLguNabuaLogModes extends Migration
             $table->text('description')->nullable();
             $table->timestamps();
         });
+
+        DB::table('dtr_lgu_nabua_log_modes')->insert([
+            [
+                'title' => 'Morning In'
+            ],
+            [
+                'title' => 'Morning Out'
+            ],
+            [
+                'title' => 'Afternoon In'
+            ],
+            [
+                'title' => 'Afternoon Out'
+            ]
+        ]);
     }
 
     /**s
