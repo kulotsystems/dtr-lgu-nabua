@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\DataStoreController;
 use App\Http\Controllers\EmployeeController;
 
 /*
@@ -20,6 +21,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::post('/', [DataStoreController::class, 'store']);
+
 Route::controller(EmployeeController::class)->group(function() {
     Route::post('employee/login'   , 'login');
 
@@ -28,5 +31,3 @@ Route::controller(EmployeeController::class)->group(function() {
     Route::get('employee/dashboard', 'dashboard')
         ->middleware('validate-account-code');
 });
-
-
