@@ -9,7 +9,7 @@ A web portal hooked into the DTR machine of LGU Nabua, Camarines Sur that can be
 ### Development Setup
 1. Clone or download this repository.
 2. Open the project directory and copy `.env-example` to `.env` in the root directory.
-3. Create a MySQL database named `dtr-lgu-nabua`.
+3. Create a MySQL database named `dtr_lgu_nabua`.
 4. Open cloned directory in terminal then run the following commands in order:
 
     *Install backend dependencies:*
