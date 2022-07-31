@@ -51,6 +51,26 @@
                             </button>
                         </div>
                     </div>
+
+                    <!-- ADS ON LOGIN PAGE -->
+                    <template v-if="document.width > 767">
+                        <div class="col-md-6 mt-3">
+                            <ads-enzo-german class="mt-5 mb-3"/>
+                        </div>
+                        <div class="col-md-6 mt-3 pt-5">
+                            <github-sponsor class="mb-4"/>
+                            <socmed-twitter/>
+                        </div>
+                    </template>
+                    <template v-else>
+                        <div class="col-md-6 mt-3 pt-5">
+                            <github-sponsor class="mb-4"/>
+                            <socmed-twitter/>
+                        </div>
+                        <div class="col-md-6">
+                            <ads-enzo-german class="mb-5"/>
+                        </div>
+                    </template>
                 </div>
 
                 <!-- MAIN DASHBOARD -->
@@ -107,6 +127,11 @@
                                     </tr>
                                     </tbody>
                                 </table>
+                                <p class="ma-0 mt-1 text-center" style="opacity: 0.8">
+                                    <small>
+                                        Please <a href="https://web.facebook.com/kulotsystems" target="_blank" class="text-decoration-none"><b>contact us</b></a> if your DTR is not updated.
+                                    </small>
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -152,6 +177,26 @@
                 <div class="col-md-5 mt-md-4 mb-5" align="center">
                     <div class="fb-page" data-href="https://www.facebook.com/kulotsystems/" data-tabs="" data-width="" data-height="" data-small-header="false" data-adapt-container-width="true" data-hide-cover="true" data-show-facepile="true"><blockquote cite="https://www.facebook.com/kulotsystems/" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/kulotsystems/">Kulot Systems</a></blockquote></div>
                 </div>
+
+                <!-- ADS ON DASHBOARD -->
+                <template v-if="document.width > 767">
+                    <div class="col-md-6">
+                        <ads-enzo-german/>
+                    </div>
+                    <div class="col-md-6">
+                        <github-sponsor class="mb-4"/>
+                        <socmed-twitter/>
+                    </div>
+                </template>
+                <template v-else>
+                    <div class="col-md-6">
+                        <github-sponsor class="mb-4"/>
+                        <socmed-twitter/>
+                    </div>
+                    <div class="col-md-6">
+                        <ads-enzo-german class="mb-5"/>
+                    </div>
+                </template>
             </div>
         </div>
     </div>
@@ -161,13 +206,17 @@
     import $ from 'jquery';
     require('bootstrap/dist/js/bootstrap.bundle.js');
 
-
     export default {
         name: 'DtrLguNabua',
-        components: {},
+        components: {
+            'ads-enzo-german': () => import('./ads/EnzoGerman.vue'),
+            'socmed-twitter' : () => import('./socmed/Twitter.vue'),
+            'github-sponsor' : () => import('./ads/GitHubSponsor.vue')
+        },
         data() {
             return {
                 document : {
+                    width  : window.innerWidth,
                     loading: true,
                     title  : 'DTR  LGU Nabua'
                 },
@@ -193,6 +242,9 @@
             }
         },
         methods : {
+            onResize: function() {
+                this.document.width = window.innerWidth;
+            },
             login: function() {
                 let app = this;
                 app.code = app.code.trim();
@@ -336,6 +388,7 @@
         mounted: function() {
             let app = this;
             app.$nextTick(function () {
+                window.addEventListener('resize', this.onResize);
                 app.dashboard();
 
                 $('#printer').on('load', function() {
@@ -346,12 +399,15 @@
                         app.changeDocTitle('month');
                     };
                 });
-            })
+            });
+        },
+        beforeDestroy: function() {
+            window.removeEventListener('resize', this.onResize);
         }
     }
 </script>
 
-<style scoped>
+<style>
     table.dtr {
         font-family: monospace;
         opacity: 1;
@@ -377,5 +433,23 @@
 
     .form-control {
         font-weight: bold;
+    }
+
+    @keyframes wheelHueColor {
+        from, to { color: #20c997; }
+        10%      { color: #17a2b8; }
+        20%      { color: #17a2b8; }
+        30%      { color: #28a745; }
+        40%      { color: #007bff; }
+        50%      { color: #6f42c1; }
+        60%      { color: #e83e8c; }
+        70%      { color: #dc3545; }
+        80%      { color: #7e7e7e; }
+        90%      { color: #6c757d; }
+    }
+
+    .text-rgb {
+        color: rgb(236, 100, 75);
+        animation: wheelHueColor 24s infinite;
     }
 </style>
