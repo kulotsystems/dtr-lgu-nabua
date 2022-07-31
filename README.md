@@ -1,5 +1,5 @@
 ## DTR @ LGU Nabua
-A web portal hooked into the DTR machine of LGU Nabua, Camarines Sur that can be used by employees to monitor and print their Daily Time Records.
+A web portal hooked into the DTR machine of LGU Nabua that provides DTR viewing and monitoring to employees.
 
 ### Development Environment
 * PHP `^8.0`
