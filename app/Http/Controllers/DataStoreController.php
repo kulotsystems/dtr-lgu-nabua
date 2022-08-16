@@ -54,8 +54,12 @@ class DataStoreController extends Controller
                             // perform update() or create() operation
                             switch($model) {
                                 case 'Attendance' :
-                                    $db_record = Attendance::find($id);
-                                    $affected  = $db_record ? $db_record->update($record) : Attendance::create($record);
+                                    if($record['date_time'] === '0000-00-00 00:00:00')
+                                        $affected = true;
+                                    else {
+                                        $db_record = Attendance::find($id);
+                                        $affected = $db_record ? $db_record->update($record) : Attendance::create($record);
+                                    }
                                     break;
                                 case 'Designation' :
                                     $db_record = Designation::find($id);
