@@ -205,6 +205,7 @@
 <script>
     import $ from 'jquery';
     require('bootstrap/dist/js/bootstrap.bundle.js');
+    import { load } from 'recaptcha-v3';
 
     export default {
         name: 'DtrLguNabua',
@@ -253,35 +254,53 @@
                     app.btnLogin.disabled = true;
                     app.btnLogin.loading  = true;
 
-                    $.ajax({
-                        type: 'POST',
-                        url : '/api/employee/login',
-                        data: {
-                            code: app.code
-                        },
-                        success: function(data) {
-                            app.btnLogin.disabled = false;
-                            app.btnLogin.loading  = false;
-                            app.code = '';
+                    let siteKey = process.env.MIX_reCAPTCHA_v3_SITE_KEY;
+                    load(siteKey)
+                        .then(recaptcha => {
+                            recaptcha.execute('submit')
+                                .then(token => {
+                                    $.ajax({
+                                        type: 'POST',
+                                        url : '/api/employee/login',
+                                        data: {
+                                            token,
+                                            code: app.code
+                                        },
+                                        success: function(data) {
+                                            app.btnLogin.disabled = false;
+                                            app.btnLogin.loading  = false;
+                                            app.code = '';
 
-                            if(data.error != undefined) {
-                                if(data.error != '') {
-                                    app.error = data.error;
-                                    app.code  = '';
-                                    app.focusCodeInput();
-                                }
-                            }
-                            else if(data.success != undefined) {
-                                app.success = data.success;
-                                app.dashboard();
-                            }
-                        },
-                        error: function(data) {
+                                            if(data.error != undefined) {
+                                                if(data.error != '') {
+                                                    app.error = data.error;
+                                                    app.code  = '';
+                                                    app.focusCodeInput();
+                                                }
+                                            }
+                                            else if(data.success != undefined) {
+                                                app.success = data.success;
+                                                app.dashboard();
+                                            }
+                                        },
+                                        error: function(data) {
+                                            app.btnLogin.disabled = false;
+                                            app.btnLogin.loading  = false;
+                                            app.error = 'ERROR ' + data.status;
+                                        }
+                                    });
+                                })
+                                .catch(error => {
+                                    app.btnLogin.disabled = false;
+                                    app.btnLogin.loading  = false;
+                                    app.error = error;
+                                });
+                        })
+                        .catch(error => {
                             app.btnLogin.disabled = false;
                             app.btnLogin.loading  = false;
-                            app.error = 'ERROR ' + data.status;
-                        }
-                    });
+                            app.error = error;
+                        });
                 }
             },
             logout: function() {
@@ -408,6 +427,10 @@
 </script>
 
 <style>
+    .grecaptcha-badge {
+        display: none;
+    }
+
     table.dtr {
         font-family: monospace;
         opacity: 1;

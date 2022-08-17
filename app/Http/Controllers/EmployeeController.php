@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 
@@ -9,6 +10,8 @@ use App\Models\Account;
 use App\Models\LogMode;
 use App\Models\Attendance;
 use Illuminate\Http\Response;
+use GuzzleHttp\Client;
+use Illuminate\Validation\ValidationException;
 
 class EmployeeController extends Controller
 {
@@ -29,13 +32,36 @@ class EmployeeController extends Controller
      *
      * @param Request $request
      * @return Response
+     * @throws ValidationException
+     * @throws GuzzleException
      */
     public function login(Request $request)
     {
         $valid = $request->validate([
-            'code' => ['required', 'string', 'max:16']
+            'token' => ['required', 'string'],
+            'code'  => ['required', 'string', 'max:16']
         ]);
 
+        // verify reCAPTCHA
+        $token = $request->get('token');
+        $client   = new Client();
+        $response = $client->post('https://www.google.com/recaptcha/api/siteverify', [
+            'form_params' => [
+                'secret'   => env('reCAPTCHA_v3_SECRET'),
+                'response' => $token
+            ]
+        ]);
+
+        // throw errors
+        $content = json_decode($response->getBody()->getContents(), true);
+        if(!$content['success'] || $content['score'] < 0.25) {
+            throw ValidationException::withMessages([
+                'recaptcha' => 'Invalid reCAPTCHA request'
+            ]);
+        }
+
+
+        // proceed with login
         $code  = strtoupper($request->get('code'));
         $login = Account::authenticateByCode($code);
 

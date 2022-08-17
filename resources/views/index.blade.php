@@ -24,6 +24,7 @@
     <script src="{{ mix('js/vendor/packages/vue.js') }}"></script>
     <script src="{{ mix('js/vendor/packages/jquery.js') }}"></script>
     <script src="{{ mix('js/vendor/packages/bootstrap.js') }}"></script>
+    <script src="{{ mix('js/vendor/packages/recaptcha-v3.js') }}"></script>
     <script src="{{ mix('js/vendor/vendor.js') }}"></script>
     <script src="{{ mix('js/app.js') }}"></script>
 </body>
