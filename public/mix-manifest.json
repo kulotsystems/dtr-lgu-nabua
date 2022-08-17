@@ -1,7 +1,8 @@
 {
-    "/js/app.js": "/js/app.js?id=ef9ff9a0a149ff1c39ec14aac4085361",
+    "/js/app.js": "/js/app.js?id=297c5bdb89beaf18573b3d9ec152e99a",
     "/js/vendor/___.js": "/js/vendor/___.js?id=94da6eb703e29a7b71852a2167289863",
     "/js/vendor/manifest.js": "/js/vendor/manifest.js?id=9c2446829c1a22c474803d876a6958f6",
+    "/js/vendor/packages/recaptcha-v3.js": "/js/vendor/packages/recaptcha-v3.js?id=2c4dea44318df7c068ffebd436c75506",
     "/css/app.css": "/css/app.css?id=995a093a89a68c5be678b99af3db7d5b",
     "/js/vendor/packages/vue.js": "/js/vendor/packages/vue.js?id=4396cb984e1441adc0519bf5d6b0566c",
     "/js/vendor/packages/jquery.js": "/js/vendor/packages/jquery.js?id=da8d381fbbc083dc9227f5d16696bc12",

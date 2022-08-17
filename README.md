@@ -9,8 +9,14 @@ A web portal hooked into the DTR machine of LGU Nabua that provides DTR viewing 
 ### Development Setup
 1. Clone or download this repository.
 2. Open the project directory and copy `.env-example` to `.env` in the root directory.
-3. Create a MySQL database named `dtr_lgu_nabua`.
-4. Open cloned directory in terminal then run the following commands in order:
+3. Get a [reCAPTCHA v3](https://www.google.com/recaptcha) config and write it on your `.env` file.
+   ```dotenv
+   reCAPTCHA_v3_SITE_KEY=your_recaptcha_site_key
+   reCAPTCHA_v3_SECRET=your_recaptcha_secret_key
+   ```
+   <sup>- add `127.0.0.1` or `localhost` to your reCAPTCHA domains.</sup>
+4. Create a MySQL database named `dtr_lgu_nabua`.
+5. Open cloned directory in terminal then run the following commands in order:
 
     *Install backend dependencies:*
     ```composer log

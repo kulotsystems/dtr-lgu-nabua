@@ -21,6 +21,7 @@ mix
     .extract(['vue'      ], 'js/vendor/packages/vue.js')
     .extract(['jquery'   ], 'js/vendor/packages/jquery.js')
     .extract(['bootstrap'], 'js/vendor/packages/bootstrap.js')
+    .extract(['recaptcha-v3'], 'js/vendor/packages/recaptcha-v3.js')
 
     // remaining vendors
     .extract()
